@@ -23,10 +23,27 @@
     <script type="text/babel">
 
         function App() {
+
+            const suits = ['C', 'D', 'H', 'S'],
+                numbers = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
+
+            function createDeck() {
+                let deck = [];
+                for (let number of numbers) {
+                    for (let suit of suits) {
+                        deck.push(number + suit)
+                    }
+                }
+
+                return deck;
+            }
+
+            const [deck, setDeck] = React.useState(createDeck);
+
             function Deck() {
                 return (
                     <div className="col-6 col-md-3 col-lg-12">
-                        <p>Deck cards: 52</p>
+                        <p>Deck cards: {deck.length}</p>
                         <div className="w-100">
                             <img src="img/red_back.png" className="img-fluid" />
                         </div>
@@ -43,29 +60,29 @@
             }
 
             function DealBtn(props) {
-                return <button type="button" class="btn btn-primary">Deal {props.number}</button>;
+                return <button type="button" className="btn btn-primary">Deal {props.number}</button>;
             }
 
             function WildcardBtn() {
-                return <button type="button" class="btn btn-success">Wildcard</button>;
+                return <button type="button" className="btn btn-success">Wildcard</button>;
             }
 
             function TossBtn(props) {
-                return <button type="button" class="btn btn-danger">Toss</button>;
+                return <button type="button" className="btn btn-danger">Toss</button>;
             }
 
             function RegroupBtn() {
-                return <button type="button" class="btn btn-info">Regroup</button>;
+                return <button type="button" className="btn btn-info">Regroup</button>;
             }
 
             function ResetBtn() {
-                return <button type="button" class="btn btn-warning">Reset</button>;
+                return <button type="button" className="btn btn-warning">Reset</button>;
             }
             return (
                 <div className="container">
                     <div className="row flex-lg-row-reverse p-2">
                         <div className="col-12 col-lg-2">
-                            <div class="row">
+                            <div className="row">
                                 <Deck />
                                 <div className="col-6 col-md-9 col-lg-12 d-flex flex-column gap-2 mt-lg-4">
                                     <DealBtn number="5" />
