@@ -34,8 +34,11 @@
                         deck.push(number + suit)
                     }
                 }
+                return shuffle(deck);
+            }
 
-                return deck;
+            function shuffle(cards) {
+                return cards.sort(() => Math.random() - 0.5);
             }
 
             const [deck, setDeck] = React.useState(createDeck);
@@ -67,7 +70,7 @@
             function Card(props) {
 
                 function selectCard() {
-                    const selectedIndex = userCards.indexOf(props.img);
+                    const selectedIndex = props.img;
                     setSelectedCard(selectedIndex);
                 }
 
@@ -75,7 +78,7 @@
 
                 return (
                     <div className="col-3 col-lg-2 mb-2" role="button" onClick={selectCard}>
-                        <img src={file} className={selectedCard != null && userCards[selectedCard] == props.img ? 'img-fluid border border-3 border-warning' : 'img-fluid'} />
+                        <img src={file} className={selectedCard != null && selectedCard == props.img ? 'img-fluid border border-3 border-warning' : 'img-fluid'} />
                     </div>
                 );
             }
@@ -114,7 +117,7 @@
             function TossBtn(props) {
 
                 function tossCard() {
-                    setUserCards(userCards.filter((card, index) => index != selectedCard));
+                    setUserCards(userCards.filter((card) => card != selectedCard));
                     setSelectedCard(null);
                 }
 
@@ -122,11 +125,20 @@
             }
 
             function RegroupBtn() {
-                return <button type="button" className="btn btn-info">Regroup</button>;
+
+                function regroup() {
+                    setUserCards(shuffle([...userCards]));
+                }
+                return <button type="button" className="btn btn-info" onClick={regroup}>Regroup</button>;
             }
 
             function ResetBtn() {
-                return <button type="button" className="btn btn-warning">Reset</button>;
+                function reset() {
+                    setDeck(createDeck());
+                    setUserCards([]);
+                    setSelectedCard(null);
+                }
+                return <button type="button" className="btn btn-warning" onClick={reset}>Reset</button>;
             }
             return (
                 <div className="container">
