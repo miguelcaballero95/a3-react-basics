@@ -129,7 +129,7 @@
                 function regroup() {
                     setUserCards(shuffle([...userCards]));
                 }
-                return <button type="button" className="btn btn-info" onClick={regroup}>Regroup</button>;
+                return <button type="button" className="btn btn-info" onClick={regroup} disabled={userCards.length <= 0}>Regroup</button>;
             }
 
             function ResetBtn() {
