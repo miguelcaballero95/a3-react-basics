@@ -1,3 +1,4 @@
+<!-- StAuth10244: Miguel Angel Caballero Zacarias, 000915776 certify that this material is my original work. No other person's work has been used without due acknowledgement. I have not made my work available to anyone else. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,6 +106,7 @@
 
                 function takeCards() {
 
+                    setSelectedCard(null);
                     if (deck.length < props.number) return;
 
                     const newDeck = [...deck];
@@ -133,7 +135,7 @@
                 return <button type="button" className="btn btn-success" onClick={createWildcard}>Wildcard</button>;
             }
 
-            function TossBtn(props) {
+            function TossBtn() {
 
                 function tossCard() {
                     setUserCards(userCards.filter((card) => card != selectedCard));
@@ -148,7 +150,7 @@
                 function regroup() {
                     setUserCards(shuffle([...userCards]));
                 }
-                return <button type="button" className="btn btn-info" onClick={regroup} disabled={userCards.length <= 0}>Regroup</button>;
+                return <button type="button" className="btn btn-info" onClick={regroup} disabled={userCards.length <= 1}>Regroup</button>;
             }
 
             function ResetBtn() {
