@@ -26,7 +26,6 @@
 
             const suits = ['C', 'D', 'H', 'S'],
                 numbers = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
-            const userCardsContainer = document.querySelector('#user-cards');
 
             function createDeck() {
                 let deck = [];
@@ -75,11 +74,34 @@
             }
 
             function DealBtn(props) {
-                return <button type="button" className="btn btn-primary">Deal {props.number}</button>;
+
+                function takeCards() {
+                    if (deck.length === 0) return;
+
+                    const newDeck = [...deck];
+                    let newUserCards = [];
+
+                    for (let i = 0; i < props.number; i++) {
+                        newUserCards.push(newDeck.pop());
+                    }
+
+                    setDeck(newDeck);
+                    setUserCards(newUserCards);
+                }
+
+                return <button type="button" className="btn btn-primary" onClick={takeCards}>Deal {props.number}</button>;
             }
 
             function WildcardBtn() {
-                return <button type="button" className="btn btn-success">Wildcard</button>;
+
+                function createWildcard() {
+                    const suit = suits[Math.floor(Math.random() * suits.length)];
+                    const number = numbers[Math.floor(Math.random() * numbers.length)];
+                    const card = number + suit;
+                    setUserCards([...userCards, card]);
+                }
+
+                return <button type="button" className="btn btn-success" onClick={createWildcard}>Wildcard</button>;
             }
 
             function TossBtn(props) {
