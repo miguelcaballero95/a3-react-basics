@@ -26,6 +26,7 @@
 
             const suits = ['C', 'D', 'H', 'S'],
                 numbers = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
+            const userCardsContainer = document.querySelector('#user-cards');
 
             function createDeck() {
                 let deck = [];
@@ -39,12 +40,18 @@
             }
 
             const [deck, setDeck] = React.useState(createDeck);
+            const [userCards, setUserCards] = React.useState([]);
 
             function Deck() {
 
                 function takeCard() {
-                    console.log('Taking card');
+                    if (deck.length === 0) return;
 
+                    const newDeck = [...deck];
+                    const card = newDeck.pop();
+
+                    setDeck(newDeck);
+                    setUserCards([...userCards, card]);
                 }
 
                 return (
@@ -58,9 +65,11 @@
             }
 
             function Card(props) {
+
+                const file = "img/" + props.img + ".png";
                 return (
                     <div className="col-3 col-lg-2 mb-2">
-                        <img src={props.src} className="img-fluid" />
+                        <img src={file} className="img-fluid" />
                     </div>
                 );
             }
@@ -101,12 +110,8 @@
                             </div>
                         </div>
                         <div className="col-12 col-lg-10 mt-4">
-                            <div className="row">
-                                <Card src="img/red_back.png" />
-                                <Card src="img/red_back.png" />
-                                <Card src="img/red_back.png" />
-                                <Card src="img/red_back.png" />
-                                <Card src="img/red_back.png" />
+                            <div className="row" id="user-cards">
+                                {userCards.map((card, i) => <Card key={i} img={card} />)}
                             </div>
                         </div>
                     </div>
