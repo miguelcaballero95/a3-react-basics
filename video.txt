@@ -1,0 +1,2 @@
+Video: https://youtu.be/vErFykhhxSY
+Repo: https://github.com/miguelcaballero95/a3-react-basics
